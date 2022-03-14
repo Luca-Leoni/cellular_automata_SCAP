@@ -68,7 +68,10 @@ def simulation(n_steps):
 
     return states
 
-
+#########################
+# function to print out
+# the simulation output
+# in a nice style
 def printa(n_steps):
     states = simulation(n_steps)
 
