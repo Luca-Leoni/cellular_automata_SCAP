@@ -1,22 +1,34 @@
 #-----IMPORTING-----
 import numpy as np
 import string
-import pytest
-
-#-----CONSTANTS-----
-
-rule30 = {
-        '   ': ' ',
-        '00 ': ' ',
-        '0 0': ' ',
-        '0  ': '0',
-        ' 00': '0',
-        ' 0 ': '0',
-        '  0': '0',
-        '000': ' '
-        }
 
 #-----FUNCTIONS-----
+
+#########################
+# functio to transform 
+# a bynary to a state
+def from_bynary_to_state(bynary):
+    state = bynary.replace("b", "").replace("0", " ").replace("1", "0")
+
+    # Need to have 8 entries
+    while len(state) < 8:
+        state = " " + state
+
+    return state 
+
+#########################
+# function to generate
+# the rule associated
+# to a particular integer
+def generate_rule(num: int):
+    rule_keys = ['   ', '00 ', '0 0', '0  ', ' 00', ' 0 ', '  0', '000']
+    
+    # Transform the number in binary and transform in an array of 0 and spaces
+    state_rapr = list(from_bynary_to_state(bin(num)))
+ 
+    # generate the dictionary using implicit for
+    #return {rule_keys[i]: bynary_rapr[i] for i in range(len(bynary_rapr))}
+    return dict(zip(rule_keys, state_rapr))
 
 ####################
 # generate the first
@@ -49,7 +61,7 @@ def evolve(state):
             subsequence += ' '
 
         # Add the corresponding value in the rule30
-        new_state += rule30[subsequence]
+        new_state += generate_rule(110)[subsequence]
 
     new_state += '0'
 
@@ -82,12 +94,8 @@ def printa(n_steps):
 
         print(righe + states[i] + righe)
 
-printa(20)
 
 
-#-----TESTING-----
+#printa(20)
 
-def test_evolution_function():
-    assert evolve('0') == '000'
-    assert evolve('000') == '00  0'
-    assert evolve(evolve('0')) == evolve('000')
+#print(generate_rule(110))
