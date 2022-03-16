@@ -40,7 +40,7 @@ def generate_state():
 # generate the next
 # step in the sequency
 # following the 30 rules
-def evolve(state):
+def evolve(state, rule: int):
     new_state = '0'
     state_lenght = len(state)
 
@@ -61,7 +61,7 @@ def evolve(state):
             subsequence += ' '
 
         # Add the corresponding value in the rule30
-        new_state += generate_rule(110)[subsequence]
+        new_state += generate_rule(rule)[subsequence]
 
     new_state += '0'
 
@@ -72,11 +72,11 @@ def evolve(state):
 # core of the simulation
 # generate that state and 
 # evolve it for n_steps times
-def simulation(n_steps):
+def simulation(n_steps, rule: int):
     states = [generate_state()]
     
     for i in range(n_steps):
-        states.append(evolve(states[-1]))
+        states.append(evolve(states[-1], rule))
 
     return states
 
@@ -84,8 +84,8 @@ def simulation(n_steps):
 # function to print out
 # the simulation output
 # in a nice style
-def printa(n_steps):
-    states = simulation(n_steps)
+def printa(n_steps, rule: int):
+    states = simulation(n_steps, rule)
 
     for i in range(n_steps):
         righe = ''
@@ -96,6 +96,6 @@ def printa(n_steps):
 
 
 
-#printa(20)
+printa(20, 90)
 
 #print(generate_rule(110))
